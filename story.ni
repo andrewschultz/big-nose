@@ -12,22 +12,32 @@ disc3u is a truth state that varies. disc3u is usually true.
 disc5u is a truth state that varies. disc5u is usually true.
 disc7u is a truth state that varies. disc7u is usually true.
 
-SQ is a list of texts that varies.
+SQ is a list of texts that varies. SQ is { "b", "y", "p" }.
 
 L is a list of numbers that varies.
 
-when play begins:
-	now SQ is { "b", "y", "p" };
+cur-level is a number that varies. cur-level is 1.
+
+[to decide which number is first-color of (l - a number):
+	if l is 1 or l is 3 or l is 5, decide on 1;
+	decide on 2;]
+
+to reset-level:
+	let FC be 3 - remainder after dividing cur-level by 2;
 	repeat with x running from 0 to 48:
 		let xx be x / 7;
 		let xxx be the remainder after dividing x by 7;
 		if xx >= xxx:
-			add 2 to L;
+			add FC to L;
 		otherwise:
 			add 0 to L;
 	now swcount is 0;
 	now secount is 0;
-	move player to The Pyramid, without printing a room description;
+
+when play begins:
+	now SQ is { "b", "y", "p" };
+	reset-level;
+	move player to Pyramid, without printing a room description;
 
 the description of the Pyramid is "[one of]Oh dear. The squares on this 7-high triangle of a pyramid are all yellow. And you need to make them pink. They tend to start blue, then go yellow, then pink, then blue again. So you can't just run out and touch every one twice. You long for that wistful time fifteen minutes ago when they flipped between two colors, or even just stayed one color after a jump or two.[paragraph break]You suspect someone has a reason why the board seems halfway done. If you want to foil them, you can try BLINKing--but only before you move.[or]You decide to quit whining to yourself about how easy things were and consider the board abstractly. Maybe it'll help you clear things up. Oh, man, it could be worse when Coily drops down to chase you, and Sam and Slick mess up your work. You really hope the person who threw you in this puzzle didn't have time to implement them.[paragraph break]On the board below, your square is in CAPS, and the discs are up and right of the right side.[paragraph break][the-board][or][the-board][stopping]"
 
@@ -35,10 +45,10 @@ the board is backdrop. The board is everywhere.
 
 instead of examining the board:
 	try looking instead;
-	
+
 instead of examining the scenery:
 	try looking instead;
-	
+
 the description of the player is "You're an orange ball with a big nose and two orange legs made for hopping."
 
 going north is baddirring.
@@ -70,28 +80,6 @@ to say nohint:
 	decrement hintcounter;
 	say "That's all the hints I have. [no line break]";
 
-chapter blink
-
-blinking is an action out of world.
-
-carry out blinking:
-	if turn count > 1:
-		say "Too late to blink--you need to restart." instead;
-	if entry 1 of L is 1:
-		say "Zap! The squares all turn from blue to yellow.";
-	if entry 1 of L is 2:
-		say "Zap! The squares all turn from yellow to blue.";
-	repeat with temp running from 1 to 49:
-		if entry temp of L is 2:
-			now entry temp of L is 1;
-		otherwise if entry temp of L is 1:
-			now entry temp of L is 2;
-	now blinked is true;
-	
-understand the command "blink" as something new. understand "blink" as blinking.
-
-blinked is a truth state that varies. blinked is usually false.
-
 chapter logic
 
 logicing is an action out of world.
@@ -109,18 +97,6 @@ carry out logicing:
 
 understand the command "logic" as something new. understand "logic" as logicing.
 
-chapter solutioning
-
-solutioning is an action out of world.
-
-carry out solutioning:
-	if blinked is true:
-		say "For the blinked board: blink.sw.sw.sw.sw.sw.se.nw.se.ne.se.nw.se.ne.se.nw.se.ne.se.nw.se.ne.se.nw.se.ne.se.nw.se.ne.sw.sw.sw.se.nw.se.ne.se.nw.se.ne.se.nw.se.ne.se.nw.se.ne.sw.se.nw.se.ne.se.nw.se.ne.sw.ne.sw.ne.sw.sw.ne.sw.sw.ne.sw.sw.sw.sw.ne.sw.ne";
-	otherwise:
-		say "For the unblinked board: se.sw.se.ne.se.sw.se.ne.se.se.ne.sw.sw.se.se.se.se.ne.se.nw.sw.ne.sw.nw.se.nw.nw.se.nw.sw.se.nw.ne.sw.sw.ne.nw.nw.sw.se.sw.nw.sw"
-
-understand the command "solution" as something new. understand "solution" as solutioning.
-
 chapter inventory
 
 instead of taking inventory:
@@ -129,7 +105,7 @@ instead of taking inventory:
 chapter parser error
 
 rule for printing a parser error:
-	say "You can go UL, DL, DR, UR -- NW, SW, SE, NE -- or ask for HELP or a HINT. Or ask for a quick SOLUTION, or see the LOGIC behind this. You can also BLINK at the start of the game to change the colors on the board from yellow to blue or vice versa.";
+	say "You can go UL, DL, DR, UR -- NW, SW, SE, NE -- or ask for HELP or a HINT. This is much less awkward than having to hold your keyboard at an angle to play the graphic version on an emulator.";
 	reject the player's command;
 
 understand the command "help" as something new. understand "help" as hinting.
@@ -139,7 +115,6 @@ understand the command "ul" as something new. understand "ul" as northwest.
 understand the command "ur" as something new. understand "ur" as northeast.
 understand the command "dl" as something new. understand "dl" as southwest.
 understand the command "dr" as something new. understand "dr" as southeast.
-
 
 to say the-board:
 	let Y be (secount * 8) + (swcount * 7) + 1;
@@ -153,7 +128,7 @@ to say the-board:
 				let ZZ be entry Z of L;
 				if Z is Y:
 					say "[entry ZZ of SQ in upper case] [no line break]";
-				otherwise:				
+				otherwise:
 					say "[entry ZZ of SQ] [no line break]";
 		if j is 2 and disc3u is true:
 			say "*";
@@ -163,7 +138,7 @@ to say the-board:
 			say " *";
 		say "[line break]";
 	say "[variable letter spacing]"
-		
+
 to say swears:
 	say "You offer an emphatic '!@#$%^&*' just before landing.[line break]";
 
@@ -205,13 +180,11 @@ to relocate-qbert:
 	say "Lights start swirling as the disc takes you to the top of the pyramid and deposits you at the top.";
 	now secount is 0;
 	now swcount is 0;
-	increment entry 1 of L;
-	if entry 1 of L > 3:
-		decrease entry 1 of L by 3;
+	hop-on 1;
 	try looking;
 	board-count;
 	the rule succeeds;
-		
+
 check going northeast:
 	if swcount is 0:
 		if secount is 2 and disc3u is true:
@@ -231,7 +204,7 @@ check going northeast:
 			the rule succeeds;
 	say "You land with a splatch.";
 	decrement swcount;
-		
+
 check going southeast:
 	if swcount + secount is 6:
 		say "You'd jump off the pyramid if you went further that way. Still want to?";
@@ -242,7 +215,7 @@ check going southeast:
 			the rule succeeds;
 	say "You land with a splatch.";
 	increment secount;
-		
+
 check going southwest:
 	if swcount + secount is 6:
 		say "You'd jump off the pyramid if you went further that way. Still want to?";
@@ -257,17 +230,17 @@ check going southwest:
 carry out requesting the score:
 	let temp be 0;
 	repeat with q running through L:
-		if q is 3:
-			increment temp;
+		if q is 3, increment temp;
 	say "You have turned [temp] tile[s] the right color in [turn count] turns.";
 	the rule succeeds;
+
+min-moves is a list of numbers variable. min-moves is { 30, 0, 0, 0, 43, 74 }.
 
 rule for printing the player's obituary:
 	if 2 is listed in L or 1 is listed in L:
 		say "Ah, well. It's only a stupid bunch of squares, anyway. You'd probably just have to clean it again if you got it all monochrome.";
 		the rule succeeds;
-	let auth-num be 43;
-	if blinked is true, now auth-num is 74;
+	let auth-num be entry cur-level in min-moves;
 	if turn count is auth-num:
 		say "Good job! You did as well as the author.";
 	else if turn count < auth-num:
@@ -275,16 +248,25 @@ rule for printing the player's obituary:
 	else:
 		say "The author got 74 turns. Can you match/beat that?";
 
+to hop-on (n - a number):
+	increment entry n in L;
+	if entry n in L > 3:
+		if cur-level > 2:
+			decrease entry n of L by 3;
+		else:
+			now entry n of L is 3;
+
 carry out going:
-	let temp be (secount * 8) + (swcount  * 7) + 1;
+	let temp be (secount * 8) + (swcount * 7) + 1;
 	[say "Flipped [temp].";]
-	increment entry temp of L;
-	if entry temp of L > 3:
-		decrease entry temp of L by 3;
-	if 2 is not listed in L:
-		if 1 is not listed in L:
-			say "A cacophony of music and flashing lights greets your accomplishment! Your reward is to do it all over again with slightly different colored squared. Geez, why can't you at least get a skit like the idiot who just chews dots and doesn't have to worry about where he's been?";
-			end the story;
+	hop-on temp;
+	repeat with L1 running through L:
+		if L1 is 1 or L1 is 2, the rule succeeds;
+	if cur-level < 6:
+		increment cur-level;
+		reset-level instead;
+	say "A cacophony of music and flashing lights greets your accomplishment! Your reward is to do it all over again with slightly different colored squared. Geez, why can't you at least get a skit like the idiot who just chews dots and doesn't have to worry about where he's been?";
+	end the story;
 
 [report going:
 	repeat with i running from 1 to 7:
@@ -295,7 +277,7 @@ carry out going:
 
 instead of baddirring:
 	say "You've never been one for the traditional directions. You'd rather hop off at an angle."
-	
+
 volume testing - not for release
 
 Include (- Switches z; -) after "ICL Commands" in "Output.i6t".
