@@ -4,7 +4,7 @@ WARNING: contains randomized pretend swearing.
 
 A 2019 Spring Thing Back Garden potential entrant
 
-Originally created December 22, 2011 and shoved in a dark bin somewhere for a LOOOONG time
+Originally created December 22, 2011, with levels 5/6 only, and shoved in a dark bin somewhere for a LOOOONG time
 
 The first draft was a 1-level game with the toughest Q\*Bert setting.
 
