@@ -1,14 +1,69 @@
+WALKTHROUGH for Big Nose
+
+This game shouldn't be nearly as hard as Q*Bert. But still, for those interested in how to do things quickly, or what is going on, here is a look-through:
+
 Level 1
 
-sw.sw.sw.sw.sw.sw.ne.se.nw.nw.nw.nw.nw
-se.se.se.se.se.nw.sw.nw.nw.nw.sw.sw.sw.ne.se.ne.se
+This is pretty straightforward, but it's a fun puzzle to try to minimize the steps you need. Let's let X be the number of unfilled squares in an odd row and Y be the number of unfilled squares in an even row. Then X=16 and Y=12. The first jump will make Y=11. So it looks like it will take at least 32 jumps. But we can do a bit better!
+
+      x       1
+     y y      2
+    x x x     3
+   y y y y    4
+  x x x x x   5
+ y y y y y y  6
+x x x x x x x 7
+
+se.se.se.se.se.se.ne and this takes care of 2 X's in a row. Note that we can't repeat this, since once the top is changed, it doesn't need to be changed again. But that cuts down the needed squares by one.
+
+sw.se.se.se.se.se.nw.sw.nw.nw.nw.nw.sw.se.se.se.nw.sw.nw.nw.sw.se.nw.sw
+
+That is 31 total moves.
+
+So if you were wondering long ago if you were missing something by having to run back over squares, no, you weren't.
+
+Level 2
+
+Now let's make the value of each square the number of times Q*Bert has jumped on it. It starts at zero and goes to two.
+
+So here we have a similar puzzle except we 24 X's and 32 Y's. Since the first jump is a Y and we alternate X's and Y's, That means at least 64 jumps ... minus the two where we can use discs to get back to the top to get 2 Y's in a row.
+
+se.se.se.se.se.se.nw.se.ne (9)
+se.se.se.se.ne (5, 14)
+
+All right! Now for the rest.
+
+sw.sw.ne.sw.sw.sw.ne.sw.sw.sw.ne.se.ne* (13, 27)
+
+se.sw.ne.sw.ne*.se.ne.sw.ne.se.ne.sw.ne.se.ne.sw.ne.se.nw*.se.nw* (22, 49)
+
+nw.nw.se.nw.nw.sw.ne.sw.sw.ne.se.ne.sw.ne.se (15, 64)
+
+Level 3
+
+We can't be quite as slick here, but we can get a good start by using the discs.
+
+se.se.se.se.se.se.ne (7)
+sw.se.se.se.se.se.se
+nw.sw.nw.nw.nw.nw
+sw.sw.sw.sw
+ne.se.ne.se.ne.se
+ne.ne
+
+Now we have a problem with squares rather far away from each other, but ... we can link them up.
+
+sw.sw.nw.sw.ne.se.ne.ne
+
+se.se.ne.se.nw.sw.nw.nw
+
+I'm not sure if this is completely minimal, but it shows how you need to link up squares far away.
+
+Level 4
 
 Level 5
 
 se.sw.se.ne.se.sw.se.ne.se.se.ne.sw.sw.se.se.se.se.ne.se.nw.sw.ne.sw.nw.se.nw.nw.se.nw.sw.se.nw.ne.sw.sw.ne.nw.nw.sw.se.sw.nw.sw"
 
-
 Level 6
 
 sw.sw.sw.sw.sw.se.nw.se.ne.se.nw.se.ne.se.nw.se.ne.se.nw.se.ne.se.nw.se.ne.se.nw.se.ne.sw.sw.sw.se.nw.se.ne.se.nw.se.ne.se.nw.se.ne.se.nw.se.ne.sw.se.nw.se.ne.se.nw.se.ne.sw.ne.sw.ne.sw.sw.ne.sw.sw.ne.sw.sw.sw.sw.ne.sw.ne"
-
