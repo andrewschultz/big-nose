@@ -23,7 +23,7 @@ cur-level is a number that varies. cur-level is 1.
 	decide on 2;]
 
 to reset-level:
-	let FC be 3 - remainder after dividing cur-level by 2;
+	let FC be 3 - remainder after dividing cur-level by 2; [first-color hack]
 	repeat with x running from 0 to 48:
 		let xx be x / 7;
 		let xxx be the remainder after dividing x by 7;
@@ -33,6 +33,7 @@ to reset-level:
 			add 0 to L;
 	now swcount is 0;
 	now secount is 0;
+	now the turn count is 0;
 
 when play begins:
 	now SQ is { "b", "y", "p" };
@@ -234,7 +235,7 @@ carry out requesting the score:
 	say "You have turned [temp] tile[s] the right color in [turn count] turns.";
 	the rule succeeds;
 
-min-moves is a list of numbers variable. min-moves is { 30, 0, 0, 0, 43, 74 }.
+min-moves is a list of numbers variable. min-moves is { 31, 62, 0, 0, 43, 74 }.
 
 rule for printing the player's obituary:
 	if 2 is listed in L or 1 is listed in L:
@@ -246,13 +247,15 @@ rule for printing the player's obituary:
 	else if turn count < auth-num:
 		say "You beat the author! Wow!";
 	else:
-		say "The author got 74 turns. Can you match/beat that?";
+		say "The author got [auth-num] turns. Can you match/beat that?";
 
 to hop-on (n - a number):
 	increment entry n in L;
-	if entry n in L > 3:
-		if cur-level > 2:
-			decrease entry n of L by 3;
+	if entry n in L is 4:
+		if cur-level > 4:
+			now entry n of L is 1;
+		else if cur-level > 2:
+			now entry n of L is 2;
 		else:
 			now entry n of L is 3;
 
@@ -281,4 +284,17 @@ instead of baddirring:
 volume testing - not for release
 
 Include (- Switches z; -) after "ICL Commands" in "Output.i6t".
+
+chapter lving
+
+lving is an action applying to one number.
+
+understand the command "lv" as something new.
+
+understand "lv [number]" as lving.
+
+carry out lving:
+	if the number understood > 6 or the number understood < 1: say "Need 1-6.";
+	now the turn count is 0;
+	the rule succeeds.
 
