@@ -41,22 +41,23 @@ nw.nw.se.nw.nw.sw.ne.sw.sw.ne.se.ne.sw.ne.se (15, 64)
 
 Level 3
 
-We can't be quite as slick here, but we can get a good start by using the discs.
+We can't be quite as slick here, but we can get a good start by using the discs. The main thing to note is how to close out a square that necessarily is left behind when you go in a corner.
 
-se.se.se.se.se.se.ne (7)
-sw.se.se.se.se.se.se
-nw.sw.nw.nw.nw.nw
-sw.sw.sw.sw
-ne.se.ne.se.ne.se
-ne.ne
+se.se.se.se.se.se.ne
 
-Now we have a problem with squares rather far away from each other, but ... we can link them up.
+sw.se.se.se.se.se
 
-sw.sw.nw.sw.ne.se.ne.ne
+Now we're in a dead end.
 
-se.se.ne.se.nw.sw.nw.nw
+nw.sw.nw.ne.se.nw.sw.sw.ne
 
-I'm not sure if this is completely minimal, but it shows how you need to link up squares far away.
+This move helps us clear off a potential future bothersome corner square. So we can cut out even more.
+
+nw.nw.nw.sw.se.se.sw.nw.nw.sw.se.nw.sw.ne
+
+I can't prove this is minimal, but it seems very efficient. It looks like there will be two corner squares you have to leave for later.
+
+36 moves is not too shabby.
 
 Level 4
 

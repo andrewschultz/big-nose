@@ -232,7 +232,7 @@ carry out requesting the score:
 	let temp be 0;
 	repeat with q running through L:
 		if q is 3, increment temp;
-	say "You have turned [temp] tile[s] the right color in [turn count] turns.";
+	say "You have turned [temp] tile[s] the right color in [turn count] turns.[one of][line break]Maybe if predators were chasing you around the pyramid, you'd deserve a score in the thousands. But they aren't.[or][stopping]";
 	the rule succeeds;
 
 min-moves is a list of numbers variable. min-moves is { 31, 62, 0, 0, 43, 74 }.
@@ -294,7 +294,8 @@ understand the command "lv" as something new.
 understand "lv [number]" as lving.
 
 carry out lving:
-	if the number understood > 6 or the number understood < 1: say "Need 1-6.";
-	now the turn count is 0;
+	if the number understood > 6 or the number understood < 1, say "Need 1-6." instead;
+	now cur-level is the number understood;
+	reset-level;
 	the rule succeeds.
 
