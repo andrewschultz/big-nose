@@ -106,7 +106,7 @@ instead of taking inventory:
 chapter parser error
 
 rule for printing a parser error:
-	say "You can go UL, DL, DR, UR -- NW, SW, SE, NE -- or ask for HELP or a HINT. This is much less awkward than having to hold your keyboard at an angle to play the graphic version on an emulator.";
+	say "You can go UL, DL, DR, UR -- NW, SW, SE, NE -- or, if you want to use one keystroke, the numpad 7 1 3 9 or the keys r c b y u=will do the trick. This is much less awkward than having to hold your keyboard at an angle to play the graphic version on an emulator. You can also ask for HELP or a HINT.";
 	reject the player's command;
 
 understand the command "help" as something new. understand "help" as hinting.
@@ -116,6 +116,16 @@ understand the command "ul" as something new. understand "ul" as northwest.
 understand the command "ur" as something new. understand "ur" as northeast.
 understand the command "dl" as something new. understand "dl" as southwest.
 understand the command "dr" as something new. understand "dr" as southeast.
+
+understand the command "7" as something new. understand "7" as northwest.
+understand the command "9" as something new. understand "9" as northeast.
+understand the command "1" as something new. understand "1" as southwest.
+understand the command "3" as something new. understand "3" as southeast.
+
+understand the command "r" as something new. understand "r" as northwest.
+understand the command "y" as something new. understand "y" as northeast.
+understand the command "c" as something new. understand "c" as southwest.
+understand the command "b" as something new. understand "b" as southeast.
 
 to say the-board:
 	let Y be (secount * 8) + (swcount * 7) + 1;
