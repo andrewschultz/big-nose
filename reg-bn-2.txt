@@ -8,6 +8,15 @@
 
 * gothru_testing
 
+>lv 2
+Moving to level 2.
+
+>lv 2
+You're already on level 2. Type lv 0 to reset.
+
+>lv 0
+Resetting current level.
+
 >se
 
 >se

@@ -304,8 +304,9 @@ understand the command "lv" as something new.
 understand "lv [number]" as lving.
 
 carry out lving:
-	if the number understood > 6 or the number understood < 1, say "Need 1-6." instead;
-	now cur-level is the number understood;
+	if the number understood > 6 or the number understood < 0, say "Need 1-6, or 0 to reset current level." instead;
+	if the number understood is the current level, say "You're already on level [number understood]. Type lv 0 to reset." instead;
+	if number understood is not 0, now cur-level is the number understood;
 	reset-level;
 	the rule succeeds.
 

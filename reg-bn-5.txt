@@ -7,3 +7,13 @@
 ** interpreter: /home/andrew/prt/glulxe -q
 
 * gothru_testing
+
+>lv 5
+Moving to level 5.
+
+>lv 5
+You're already on level 5. Type lv 0 to reset.
+
+>lv 0
+Resetting current level.
+

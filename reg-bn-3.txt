@@ -8,6 +8,15 @@
 
 * gothru_testing
 
+>lv 3
+Moving to level 3.
+
+>lv 3
+You're already on level 3. Type lv 0 to reset.
+
+>lv 0
+Resetting current level.
+
 >se
 
 >se
