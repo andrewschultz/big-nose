@@ -1,5 +1,26 @@
 "Big Nose on the Big Pyramid" by Andrew Schultz
 
+volume the whole game
+
+chapter random swears
+
+Include (-
+
+Array swears --> 9 "!" "@{048}" "#" "$" "%" "^" "&" "*" "?";
+
+[ SwearString i;
+  for (i = 0:i < 7: i++) {
+    print (string) swears-->random(9);
+  }
+  rfalse;
+];
+
+-)
+
+to say randswear: (- SwearString(); -)
+
+chapter the room
+
 The Pyramid is a room.
 
 Pyramid is southwest of Pyramid.
@@ -151,7 +172,7 @@ to say the-board:
 	say "[variable letter spacing]"
 
 to say swears:
-	say "You offer an emphatic '!@#$%^&*' just before landing.[line break]";
+	say "You offer an emphatic [randswear] just before landing.[line break]";
 
 to board-count:
 	let temp be 0;
@@ -230,9 +251,9 @@ this is the edge-jump-check rule:
 	else:
 		now warn-player is whether or not swcount + secount is 6;
 	if warn-player is true:
-		say "You'd jump off the pyramid if you went further that way. Still want to?";
+		say "[randswear], there's no square there, and it's a long way down. Still want to?";
 		if the player consents:
-			say "[swears]";
+			say "[randswear]";
 			end the story instead;
 		otherwise:
 			the rule succeeds;
