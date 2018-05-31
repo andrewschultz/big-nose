@@ -88,9 +88,9 @@ logicing is an action out of world.
 carry out logicing:
 	say "If you've ever heard of the mutilated checkerboard problem http://en.wikipedia.org/wiki/Mutilated_chessboard_problem then the same sort of logic applies here. Consider the following board:[paragraph break]
 	[fixed letter spacing]
-      +
-     - -
-    + + +
+	  +
+	 - -
+	+ + +
    - - - -
   + + + + +
  - - - - - -
@@ -153,22 +153,6 @@ to say the-board:
 to say swears:
 	say "You offer an emphatic '!@#$%^&*' just before landing.[line break]";
 
-check going northwest:
-	if secount is 0:
-		say "You'd jump off the pyramid if you went further that way. Still want to?";
-		if the player consents:
-			say "[swears]";
-			end the story instead;
-		otherwise:
-			the rule succeeds;
-	if turn count < 5:
-		say "You land with a splatch.";
-	if turn count is 5:
-		say "All this splatching, and none of your enemies have appeared yet. This could be your lucky day!";
-	if turn count is 10:
-		say "Looks like you can concentrate on clearing this pyramid up all by yourself.";
-	decrement secount;
-
 to board-count:
 	let temp be 0;
 	repeat with LL running from 1 to 49:
@@ -196,47 +180,64 @@ to relocate-qbert:
 	board-count;
 	the rule succeeds;
 
+chapter basic jump rules
+
+check going northwest:
+	abide by the edge-jump-check rule;
+	consider the splatchy rule;
+	decrement secount;
+
 check going northeast:
-	if swcount is 0:
-		if secount is 2 and disc3u is true:
-			now disc3u is false;
-			relocate-qbert instead;
-		if secount is 4 and disc5u is true:
-			now disc5u is false;
-			relocate-qbert instead;
-		if secount is 6 and disc7u is true:
-			now disc7u is false;
-			relocate-qbert instead;
-		say "You'd jump off the pyramid if you went further that way. Still want to?";
-		if the player consents:
-			say "[swears]";
-			end the story instead;
-		otherwise:
-			the rule succeeds;
-	say "You land with a splatch.";
+	abide by the to-top rule;
+	abide by the edge-jump-check rule;
+	consider the splatchy rule;
 	decrement swcount;
 
 check going southeast:
-	if swcount + secount is 6:
-		say "You'd jump off the pyramid if you went further that way. Still want to?";
-		if the player consents:
-			say "[swears]";
-			end the story instead;
-		otherwise:
-			the rule succeeds;
-	say "You land with a splatch.";
+	abide by the edge-jump-check rule;
+	consider the splatchy rule;
 	increment secount;
 
 check going southwest:
-	if swcount + secount is 6:
+	abide by the edge-jump-check rule;
+	consider the splatchy rule;
+	increment swcount;
+
+this is the to-top rule:
+	if secount is 2 and disc3u is true:
+		now disc3u is false;
+		relocate-qbert instead;
+	if secount is 4 and disc5u is true:
+		now disc5u is false;
+		relocate-qbert instead;
+	if secount is 6 and disc7u is true:
+		now disc7u is false;
+		relocate-qbert instead;
+
+this is the splatchy rule:
+	if turn count < 5, say "You land with a splatch.";
+	if turn count is 5, say "All this noisy splatching, and none of your enemies have appeared yet. This could be your lucky day!";
+	if turn count is 10, say "Looks like you can concentrate on clearing this pyramid up all by yourself.";
+
+section off the edge checks
+
+this is the edge-jump-check rule:
+	let warn-player be false;
+	if noun is northwest:
+		now warn-player is whether or not secount is 0;
+	else if noun is northeast:
+		now warn-player is whether or not swcount is 0;
+	else:
+		now warn-player is whether or not swcount + secount is 6;
+	if warn-player is true:
 		say "You'd jump off the pyramid if you went further that way. Still want to?";
 		if the player consents:
 			say "[swears]";
 			end the story instead;
 		otherwise:
 			the rule succeeds;
-	say "You land with a splatch.";
-	increment swcount;
+
+chapter score
 
 carry out requesting the score:
 	let temp be 0;
@@ -305,8 +306,11 @@ understand "lv [number]" as lving.
 
 carry out lving:
 	if the number understood > 6 or the number understood < 0, say "Need 1-6, or 0 to reset current level." instead;
-	if the number understood is the current level, say "You're already on level [number understood]. Type lv 0 to reset." instead;
-	if number understood is not 0, now cur-level is the number understood;
+	if the number understood is cur-level, say "You're already on level [number understood]. Type lv 0 to reset." instead;
+	if number understood is not 0:
+		say "Moving to level [number understood].";
+		now cur-level is the number understood;
+	else:
+		say "Resetting current level.";
 	reset-level;
 	the rule succeeds.
-
