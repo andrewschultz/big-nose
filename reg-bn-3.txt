@@ -1,0 +1,86 @@
+** reg-bn-3.txt
+
+** mistake/clue revealing tester
+** not attacked to the main walkthrough file
+
+** game: /home/andrew/prt/debug-big-nose.z5
+** interpreter: /home/andrew/prt/glulxe -q
+
+* gothru_testing
+
+>se
+
+>se
+
+>se
+
+>se
+
+>se
+
+>se
+
+>ne
+
+>sw
+
+>se
+
+>se
+
+>se
+
+>se
+
+>se
+
+Now we're in a dead end.
+
+>nw
+
+FLIP BACK
+
+>sw
+
+>nw
+
+>ne
+
+>se
+
+>nw
+
+>sw
+
+>sw
+
+>ne
+
+>nw
+
+>nw
+
+>nw
+
+>sw
+
+>se
+
+>se
+
+>sw
+
+>nw
+
+>nw
+
+>sw
+
+>se
+
+>nw
+
+>sw
+
+>ne
+

@@ -61,10 +61,18 @@ I can't prove this is minimal, but it seems very efficient. It looks like there 
 
 Level 4
 
+A similar strategy works here to cut out any squares that seem to get lost in the shuffle, but you just have to backtrack a bit more. Again, we can start with the corner stuff to get it out of the way.
+
+se.se.se.se.se.se.nw.se.ne
+
+se.se.se.se.ne
+
+That's that for the top diagonal.
+
 Level 5
 
-se.sw.se.ne.se.sw.se.ne.se.se.ne.sw.sw.se.se.se.se.ne.se.nw.sw.ne.sw.nw.se.nw.nw.se.nw.sw.se.nw.ne.sw.sw.ne.nw.nw.sw.se.sw.nw.sw"
+se.sw.se.ne.se.sw.se.ne.se.se.ne.sw.sw.se.se.se.se.ne.se.nw.sw.ne.sw.nw.se.nw.nw.se.nw.sw.se.nw.ne.sw.sw.ne.nw.nw.sw.se.sw.nw.sw
 
 Level 6
 
-sw.sw.sw.sw.sw.se.nw.se.ne.se.nw.se.ne.se.nw.se.ne.se.nw.se.ne.se.nw.se.ne.se.nw.se.ne.sw.sw.sw.se.nw.se.ne.se.nw.se.ne.se.nw.se.ne.se.nw.se.ne.sw.se.nw.se.ne.se.nw.se.ne.sw.ne.sw.ne.sw.sw.ne.sw.sw.ne.sw.sw.sw.sw.ne.sw.ne"
+sw.sw.sw.sw.sw.se.nw.se.ne.se.nw.se.ne.se.nw.se.ne.se.nw.se.ne.se.nw.se.ne.se.nw.se.ne.sw.sw.sw.se.nw.se.ne.se.nw.se.ne.se.nw.se.ne.se.nw.se.ne.sw.se.nw.se.ne.se.nw.se.ne.sw.ne.sw.ne.sw.sw.ne.sw.sw.ne.sw.sw.sw.sw.ne.sw.ne

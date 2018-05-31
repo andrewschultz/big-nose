@@ -1,0 +1,9 @@
+** reg-bn-6.txt
+
+** mistake/clue revealing tester
+** not attacked to the main walkthrough file
+
+** game: /home/andrew/prt/debug-big-nose.z5
+** interpreter: /home/andrew/prt/glulxe -q
+
+* gothru_testing
