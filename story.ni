@@ -1,8 +1,10 @@
 "Big Nose on the Big Pyramid" by Andrew Schultz
 
-volume the whole game
+the story headline is "A diagonal affair"
 
-include basic screen effects by emily short.
+the story description is "Okay, it's really just Q*Bert: the Text Adventure"
+
+volume the whole game
 
 To process (RL - a rule): (- ProcessRulebook({RL}, 0, true); -)
 
@@ -164,6 +166,16 @@ understand the command "ur" as something new. understand "ur" as northeast.
 understand the command "dl" as something new. understand "dl" as southwest.
 understand the command "dr" as something new. understand "dr" as southeast.
 
+understand the command "lu" as something new. understand "lu" as northwest.
+understand the command "ru" as something new. understand "ru" as northeast.
+understand the command "ld" as something new. understand "ld" as southwest.
+understand the command "rd" as something new. understand "rd" as southeast.
+
+understand the command "wn" as something new. understand "wn" as northwest.
+understand the command "en" as something new. understand "en" as northeast.
+understand the command "ws" as something new. understand "ws" as southwest.
+understand the command "es" as something new. understand "es" as southeast.
+
 understand the command "7" as something new. understand "7" as northwest.
 understand the command "9" as something new. understand "9" as northeast.
 understand the command "1" as something new. understand "1" as southwest.
@@ -289,10 +301,7 @@ this is the edge-jump-check rule:
 chapter score
 
 carry out requesting the score:
-	let temp be 0;
-	repeat with q running through L:
-		if q is 3, increment temp;
-	say "You have turned [temp] tile[s] the right color in [turn count] turns.[one of][line break]Maybe if predators were chasing you around the pyramid, you'd deserve a score in the thousands. But they aren't.[or][stopping]";
+	say "You have turned [xc of 3] tile[unless xc of 3 is 1]s[end if] the right color [if cur-level is not 1 and cur-level is not 3]and [xc of 2] half-right [end if]in [turn count] turns.[one of][line break]Maybe if predators were chasing you around the pyramid, you'd deserve a score in the thousands. But they aren't.[or][stopping]";
 	the rule succeeds;
 
 min-moves is a list of numbers variable. min-moves is { 31, 62, 0, 0, 43, 74 }.
