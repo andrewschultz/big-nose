@@ -2,14 +2,27 @@
 
 volume the whole game
 
+include basic screen effects by emily short.
+
+To process (RL - a rule): (- ProcessRulebook({RL}, 0, true); -)
+
+chapter verbs I'll ignore
+
+understand the command "burn" as something new.
+understand the command "wave" as something new.
+
+instead of jumping: say "But which way? You can choose any of the diagonals."
+
 chapter random swears
 
 Include (-
 
-Array swears --> 9 "!" "@{048}" "#" "$" "%" "^" "&" "*" "?";
+Array swears --> 9 "!" "@{040}" "#" "$" "%" "^" "&" "*" "?";
 
 [ SwearString i;
-  for (i = 0:i < 7: i++) {
+  !for (i = 0: i < 9: i++) {
+  for (i = 0: i < 9: i++) {
+    ! print (string) swears-->(i+1);
     print (string) swears-->random(9);
   }
   rfalse;
@@ -33,7 +46,7 @@ disc3u is a truth state that varies. disc3u is usually true.
 disc5u is a truth state that varies. disc5u is usually true.
 disc7u is a truth state that varies. disc7u is usually true.
 
-SQ is a list of texts that varies. SQ is { "b", "y", "p" }.
+SQ is a list of texts that varies. SQ is { "b", "y", "g" }.
 
 L is a list of numbers that varies.
 
@@ -44,7 +57,11 @@ cur-level is a number that varies. cur-level is 1.
 	decide on 2;]
 
 to reset-level:
-	let FC be 3 - remainder after dividing cur-level by 2; [first-color hack]
+	now disc3u is true;
+	now disc5u is true;
+	now disc7u is true;
+	let FC be 1 + remainder after dividing cur-level by 2; [first-color hack]
+	now L is {};
 	repeat with x running from 0 to 48:
 		let xx be x / 7;
 		let xxx be the remainder after dividing x by 7;
@@ -56,8 +73,17 @@ to reset-level:
 	now secount is 0;
 	now the turn count is 0;
 
+to decide which number is xc of (j - a number):
+	let count be 0;
+	repeat with x running from 1 to 49:
+		if entry x in L is j, increment count;
+	decide on count;
+
+level-order is a list of text variable. level-order is { "A->B", "A->B->C", "A<->B", "A->B<->C", "A->B->C->A", "A->B->C->A" }.
+
 when play begins:
-	now SQ is { "b", "y", "p" };
+	now left hand status line is "[cur-level] [entry cur-level in level-order]";
+	now right hand status line is "[if cur-level is not 1 and cur-level is not 3][xc of 1]/[end if][xc of 2]/[xc of 3] [turn count]";
 	reset-level;
 	move player to Pyramid, without printing a room description;
 
@@ -168,7 +194,7 @@ to say the-board:
 			say " *";
 		if j is 6 and disc7u is true:
 			say " *";
-		say "[line break]";
+		if j < 7, say "[line break]";
 	say "[variable letter spacing]"
 
 to say swears:
@@ -186,11 +212,12 @@ to board-count:
 			[if entry LL in L > 0:
 				say "Square [LL] is [(entry LL in L)].";]
 	[say "[temp]";]
-	if the remainder after dividing temp by 3 is 1:
-		if disc3u is false and disc5u is false and disc7u is false:
-			say "You might want to undo after this. Just sayin['].";
-		otherwise:
-			say "You feel slightly uneasy. Like you want to, or may have to, jump off again.";
+	if cur-level > 5:
+		if the remainder after dividing temp by 3 is 1:
+			if disc3u is false and disc5u is false and disc7u is false:
+				say "You might want to undo after this. Just sayin['].";
+			otherwise:
+				say "You feel slightly uneasy. Like you want to, or may have to, jump off again.";
 
 to relocate-qbert:
 	say "Lights start swirling as the disc takes you to the top of the pyramid and deposits you at the top.";
@@ -205,35 +232,36 @@ chapter basic jump rules
 
 check going northwest:
 	abide by the edge-jump-check rule;
-	consider the splatchy rule;
+	process the splatchy rule;
 	decrement secount;
 
 check going northeast:
 	abide by the to-top rule;
 	abide by the edge-jump-check rule;
-	consider the splatchy rule;
+	process the splatchy rule;
 	decrement swcount;
 
 check going southeast:
 	abide by the edge-jump-check rule;
-	consider the splatchy rule;
+	process the splatchy rule;
 	increment secount;
 
 check going southwest:
 	abide by the edge-jump-check rule;
-	consider the splatchy rule;
+	process the splatchy rule;
 	increment swcount;
 
 this is the to-top rule:
-	if secount is 2 and disc3u is true:
-		now disc3u is false;
-		relocate-qbert instead;
-	if secount is 4 and disc5u is true:
-		now disc5u is false;
-		relocate-qbert instead;
-	if secount is 6 and disc7u is true:
-		now disc7u is false;
-		relocate-qbert instead;
+	if swcount is 0:
+		if secount is 2 and disc3u is true:
+			now disc3u is false;
+			relocate-qbert instead;
+		if secount is 4 and disc5u is true:
+			now disc5u is false;
+			relocate-qbert instead;
+		if secount is 6 and disc7u is true:
+			now disc7u is false;
+			relocate-qbert instead;
 
 this is the splatchy rule:
 	if turn count < 5, say "You land with a splatch.";
@@ -297,6 +325,7 @@ carry out going:
 	hop-on temp;
 	repeat with L1 running through L:
 		if L1 is 1 or L1 is 2, the rule succeeds;
+	say "Lights swirl! You hear a little tune! There's flashing, then ... a new board.";
 	if cur-level < 6:
 		increment cur-level;
 		reset-level instead;
