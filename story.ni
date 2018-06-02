@@ -19,13 +19,14 @@ chapter random swears
 
 Include (-
 
-Array swears --> 9 "!" "@{040}" "#" "$" "%" "^" "&" "*" "?";
+Array swears --> 9 33 64 35 36 37 94 38 42 63;
 
 [ SwearString i;
-  !for (i = 0: i < 9: i++) {
-  for (i = 0: i < 9: i++) {
-    ! print (string) swears-->(i+1);
+  ! for (i = 0: i < 9: i++) {
+  for (i = 0: i < 7: i++) {
+    ! print (char) swears-->(i+1);
     print (string) swears-->random(9);
+    print i;
   }
   rfalse;
 ];
@@ -34,12 +35,7 @@ Array swears --> 9 "!" "@{040}" "#" "$" "%" "^" "&" "*" "?";
 
 to say randswear: (- SwearString(); -)
 
-chapter the room
-
-The Pyramid is a room.
-
-Pyramid is southwest of Pyramid.
-Pyramid is northwest of Pyramid.
+chapter variables
 
 swcount is a number that varies. swcount is usually 0.
 secount is a number that varies. secount is usually 0.
@@ -53,6 +49,15 @@ SQ is a list of texts that varies. SQ is { "b", "y", "g" }.
 L is a list of numbers that varies.
 
 cur-level is a number that varies. cur-level is 1.
+
+move-count is a number that varies.
+
+chapter the room
+
+The Pyramid is a room.
+
+Pyramid is southwest of Pyramid.
+Pyramid is northwest of Pyramid.
 
 [to decide which number is first-color of (l - a number):
 	if l is 1 or l is 3 or l is 5, decide on 1;
@@ -73,7 +78,7 @@ to reset-level:
 			add 0 to L;
 	now swcount is 0;
 	now secount is 0;
-	now the turn count is 0;
+	now move-count is 0;
 
 to decide which number is xc of (j - a number):
 	let count be 0;
@@ -85,7 +90,7 @@ level-order is a list of text variable. level-order is { "A->B", "A->B->C", "A<-
 
 when play begins:
 	now left hand status line is "[cur-level] [entry cur-level in level-order]";
-	now right hand status line is "[if cur-level is not 1 and cur-level is not 3][xc of 1]/[end if][xc of 2]/[xc of 3] [turn count]";
+	now right hand status line is "[if cur-level is not 1 and cur-level is not 3][xc of 1]/[end if][xc of 2]/[xc of 3] [move-count]";
 	reset-level;
 	move player to Pyramid, without printing a room description;
 
@@ -232,6 +237,7 @@ to board-count:
 				say "You feel slightly uneasy. Like you want to, or may have to, jump off again.";
 
 to relocate-qbert:
+	increment move-count;
 	say "Lights start swirling as the disc takes you to the top of the pyramid and deposits you at the top.";
 	now secount is 0;
 	now swcount is 0;
@@ -276,9 +282,9 @@ this is the to-top rule:
 			relocate-qbert instead;
 
 this is the splatchy rule:
-	if turn count < 5, say "You land with a splatch.";
-	if turn count is 5, say "All this noisy splatching, and none of your enemies have appeared yet. This could be your lucky day!";
-	if turn count is 10, say "Looks like you can concentrate on clearing this pyramid up all by yourself.";
+	if move-count < 5, say "You land with a splatch.";
+	if move-count is 5, say "All this noisy splatching, and none of your enemies have appeared yet. This could be your lucky day!";
+	if move-count is 10, say "Looks like you can concentrate on clearing this pyramid up all by yourself.";
 
 section off the edge checks
 
@@ -297,11 +303,12 @@ this is the edge-jump-check rule:
 			end the story instead;
 		otherwise:
 			the rule succeeds;
+	increment move-count;
 
 chapter score
 
 carry out requesting the score:
-	say "You have turned [xc of 3] tile[unless xc of 3 is 1]s[end if] the right color [if cur-level is not 1 and cur-level is not 3]and [xc of 2] half-right [end if]in [turn count] turns.[one of][line break]Maybe if predators were chasing you around the pyramid, you'd deserve a score in the thousands. But they aren't.[or][stopping]";
+	say "You have turned [xc of 3] tile[unless xc of 3 is 1]s[end if] the right color [if cur-level is not 1 and cur-level is not 3]and [xc of 2] half-right [end if]in [move-count] jumps.[one of][line break]Maybe if predators were chasing you around the pyramid, you'd deserve a score in the thousands. But they aren't.[or][stopping]";
 	the rule succeeds;
 
 min-moves is a list of numbers variable. min-moves is { 31, 62, 0, 0, 43, 74 }.
@@ -311,9 +318,9 @@ rule for printing the player's obituary:
 		say "Ah, well. It's only a stupid bunch of squares, anyway. You'd probably just have to clean it again if you got it all monochrome.";
 		the rule succeeds;
 	let auth-num be entry cur-level in min-moves;
-	if turn count is auth-num:
+	if move-count is auth-num:
 		say "Good job! You did as well as the author.";
-	else if turn count < auth-num:
+	else if move-count < auth-num:
 		say "You beat the author! Wow!";
 	else:
 		say "The author got [auth-num] turns. Can you match/beat that?";
