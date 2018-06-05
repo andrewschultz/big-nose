@@ -311,7 +311,7 @@ carry out requesting the score:
 	say "You have turned [xc of 3] tile[unless xc of 3 is 1]s[end if] the right color [if cur-level is not 1 and cur-level is not 3]and [xc of 2] half-right [end if]in [move-count] jumps.[one of][line break]Maybe if predators were chasing you around the pyramid, you'd deserve a score in the thousands. But they aren't.[or][stopping]";
 	the rule succeeds;
 
-min-moves is a list of numbers variable. min-moves is { 31, 62, 0, 0, 43, 74 }.
+min-moves is a list of numbers variable. min-moves is { 31, 62, 36, 62, 43, 68 }.
 
 rule for printing the player's obituary:
 	if 2 is listed in L or 1 is listed in L:

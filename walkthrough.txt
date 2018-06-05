@@ -69,6 +69,8 @@ se.se.se.se.ne
 
 That's that for the top diagonal.
 
+sw.se.nw.se.se.se.nw.se.se.se.nw.se.nw.sw.ne.sw.nw.sw.nw.ne.se.sw.nw.ne.nw.nw.sw.se.ne.nw.sw.se.sw.sw.nw.sw.ne.sw.ne.ne.sw.ne.se.se.nw.sw.ne.se
+
 Level 5
 
 se.sw.se.ne.se.sw.se.ne.se.se.ne.sw.sw.se.se.se.se.ne.se.nw.sw.ne.sw.nw.se.nw.nw.se.nw.sw.se.nw.ne.sw.sw.ne.nw.nw.sw.se.sw.nw.sw
