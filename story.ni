@@ -147,6 +147,30 @@ carry out hinting:
 to say nohint:
 	decrement hintcounter;
 	say "That's all the hints I have. [no line break]";
+chapter notify if so close yet so far
+
+to decide whether so-close-yet-so-far:
+	if cur-level < 5, decide no;
+	let unfinished-found be false;
+	let count be -1;
+	let times-to-change be 0;
+	let row-to-tweak be 0;
+	let square-to-tweak be 0;
+	let unchanged-square be 0;
+	repeat with myen running through L:
+		increment count;
+		if myen is 0, next;
+		if myen is 3, next;
+		if unfinished-found is true, decide no;
+		now unchanged-square is myen;
+		now square-to-tweak is count;
+		now unfinished-found is true;
+	let row-to-tweak be square-to-tweak / 7;
+	let row-delta be (swcount + secount) - row-to-tweak;
+	if row-delta < 0, now row-delta is 0 - row-delta;
+	let parity be the remainder after dividing row-delta by 2;
+	if (the remainder after dividing row-delta by 2) + unchanged-square is 2, yes;
+	no;
 
 chapter logic
 
