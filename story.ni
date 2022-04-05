@@ -259,9 +259,9 @@ to say the-board:
 		if j is 2 and disc3u is true:
 			say "*";
 		if j is 4 and disc5u is true:
-			say " *";
+			say "*";
 		if j is 6 and disc7u is true:
-			say " *";
+			say "*";
 		if j < 7, say "[line break]";
 	say "[variable letter spacing]"
 
@@ -368,13 +368,18 @@ this is the edge-jump-check rule:
 			the rule succeeds;
 	increment move-count;
 
+chapter waiting
+
+check waiting: say "You have all the time in the world and nothing else to do. Why not wait a bit and plan ahead?" instead;
+
 chapter score
 
 carry out requesting the score:
 	say "You have turned [xc of 3] tile[unless xc of 3 is 1]s[end if] the right color [if cur-level is not 1 and cur-level is not 3]and [xc of 2] half-right [end if]in [move-count] jumps.[one of][line break]Maybe if predators were chasing you around the pyramid, you'd deserve a score in the thousands. But they aren't.[or][stopping]";
 	the rule succeeds;
 
-min-moves is a list of numbers variable. min-moves is { 31, 62, 36, 62, 43, 68 }.
+min-moves is a list of numbers variable. min-moves is { 32, 60, 36, 62, 42, 64 }.
+
 level-6-death is a truth state that varies.
 
 rule for printing the player's obituary:
@@ -385,11 +390,13 @@ rule for printing the player's obituary:
 			block-retry;
 			say "Ah, well. It's only a stupid bunch of squares, anyway. You'd probably just have to clean it again if you got it all monochrome. Thank goodness for the benefits from the Arcade Game Protagonists['] Union. The medical plan is pretty good, and really, you could use a break from the drudgery. It's just too bad that, without any hands, you can't play foozball with the others who are recuperating.";
 		the rule succeeds;
+
+to evaluate-player:
 	let auth-num be entry cur-level in min-moves;
 	if move-count is auth-num:
 		say "Good job! You did as well as the author.";
 	else if move-count < auth-num:
-		say "You beat the author! Wow!";
+		say "You beat the author! Wow! I'd like to know this. Please email me at blurglecruncheon@gmail.com with this sequence: [move-list] for level [cur-level].";
 	else:
 		say "The author got [auth-num] turns. Can you match/beat that?";
 
