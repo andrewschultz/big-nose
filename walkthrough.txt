@@ -14,9 +14,9 @@ This is pretty straightforward, but it's a fun puzzle to try to minimize the ste
  y y y y y y  6
 x x x x x x x 7
 
-se.se.se.se.se.se.ne and this takes care of 2 X's in a row. Note that we can't repeat this, since once the top is changed, it doesn't need to be changed again. But that cuts down the needed squares by one.
+3.3.3.3.3.3.7 and this takes care of 2 X's in a row. Note that we can't repeat this, since once the top is changed, it doesn't need to be changed again. But that cuts down the needed squares by one.7
 
-sw.se.se.se.se.se.nw.sw.nw.nw.nw.nw.sw.se.se.se.nw.sw.nw.nw.sw.se.nw.sw
+1.3.3.3.3.3.7.1.7.7.7.7.1.3.3.3.7.1.7.7.1.3.7.1
 
 That is 31 total moves.
 
@@ -26,36 +26,30 @@ Level 2
 
 Now let's make the value of each square the number of times Q*Bert has jumped on it. It starts at zero and goes to two.
 
-So here we have a similar puzzle except we 24 X's and 32 Y's. Since the first jump is a Y and we alternate X's and Y's, That means at least 64 jumps ... minus the two where we can use discs to get back to the top to get 2 Y's in a row.
+So here we have a similar puzzle except we have 24 X's and 32 Y's. Since the first jump is a Y and we alternate X's and Y's, That means at least 64 jumps ... minus the two where we can use discs to get back to the top to get 2 Y's in a row.
 
-se.se.se.se.se.se.nw.se.ne (9)
-se.se.se.se.ne (5, 14)
+3.3.9
+3.3.3.3.9
 
-All right! Now for the rest.
-
-sw.sw.ne.sw.sw.sw.ne.sw.sw.sw.ne.se.ne* (13, 27)
-
-se.sw.ne.sw.ne*.se.ne.sw.ne.se.ne.sw.ne.se.ne.sw.ne.se.nw*.se.nw* (22, 49)
-
-nw.nw.se.nw.nw.sw.ne.sw.sw.ne.se.ne.sw.ne.se (15, 64)
+1.3.3.3.3.3.9.3.7.3.7.1.7.9.7.1.7.7.7.1.1.9.1.1.1.1.9.1.9.3.9.1.9.3.9.1.9.3.9.1.9.3.7.3.7.7.7.3.7.1.7.3.7.1
 
 Level 3
 
 We can't be quite as slick here, but we can get a good start by using the discs. The main thing to note is how to close out a square that necessarily is left behind when you go in a corner.
 
-se.se.se.se.se.se.ne
+3.3.3.3.3.3.9
 
-sw.se.se.se.se.se
+1.3.3.3.3.3
 
-Now we're in a dead end.
+Now we're in a dead end. One pitfall with wasting moves is that you may try to clear off blank squares at you go. But a little wrinkle allows us to avoid creating too many blank squares.
 
-nw.sw.nw.ne.se.nw.sw.sw.ne
+7.1.7.9.3.7.1.1.9
 
-This move helps us clear off a potential future bothersome corner square. So we can cut out even more.
+Now we've got something we can deal with. Only one dead-end is left.
 
-nw.nw.nw.sw.se.se.sw.nw.nw.sw.se.nw.sw.ne
+7.7.7.1.3.3.1.7.7.1.3.7.1.9
 
-I can't prove this is minimal, but it seems very efficient. It looks like there will be two corner squares you have to leave for later.
+I can't prove this is minimal, but it seems very efficient. It looks like there will be two corner squares where you need to do significant backtracking.
 
 36 moves is not too shabby.
 
@@ -63,18 +57,25 @@ Level 4
 
 A similar strategy works here to cut out any squares that seem to get lost in the shuffle, but you just have to backtrack a bit more. Again, we can start with the corner stuff to get it out of the way.
 
-se.se.se.se.se.se.nw.se.ne
+3.3.3.3.3.3.7.3.9
 
-se.se.se.se.ne
+3.3.3.3.9
 
 That's that for the top diagonal.
 
-sw.se.nw.se.se.se.nw.se.se.se.nw.se.nw.sw.ne.sw.nw.sw.nw.ne.se.sw.nw.ne.nw.nw.sw.se.ne.nw.sw.se.sw.sw.nw.sw.ne.sw.ne.ne.sw.ne.se.se.nw.sw.ne.se
+1.3.7.3.3.3.7.3.3.3.7.3.7.1.9.1.7.1.7.9.3.1.7.9.7.7.1.3.9.7.1.3.1.1.7.1.9.1.9.9.1.9.3.3.7.1.9.3
 
 Level 5
 
-se.sw.se.ne.se.sw.se.ne.se.se.ne.sw.sw.se.se.se.se.ne.se.nw.sw.ne.sw.nw.se.nw.nw.se.nw.sw.se.nw.ne.sw.sw.ne.nw.nw.sw.se.sw.nw.sw
+Here you catch a break due to the disc in the bottom right. So let's take it. The level is pretty short if you do.
+
+3.1.3.9.3.1.3.9.3.3.9 and we take the disc, thus turning the top square green, so we don't have to worry about it.
+
+1.1.3.3.3.3.9.3.7.1.9.1.7.3.7.7.3.7.1.3.7.9.1.1.9.7.7.1.3.1.7.1
 
 Level 6
 
-sw.sw.sw.sw.sw.se.nw.se.ne.se.nw.se.ne.se.nw.se.ne.se.nw.se.ne.se.nw.se.ne.se.nw.se.ne.sw.sw.sw.se.nw.se.ne.se.nw.se.ne.se.nw.se.ne.se.nw.se.ne.sw.se.nw.se.ne.se.nw.se.ne.sw.ne.sw.ne.sw.sw.ne.sw.sw.ne.sw.sw.sw.sw.ne.sw.ne
+This is presented without much comment. I got 64 moves but I bet it is possible to do things in fewer moves. The basic idea is--you can't win without falling off! Having the one disc in the corner does seem to save a lot of moves.
+
+1.1.1.1.1.1.9.3.7.3.7.7.3.7.3.3.3.3.3.3.7.1.9.1.9.1.7.3.7.7.7.7.9.1.9.1.3.3.3.1.9.7.7.3.7.1.3.1.7.1.7.1.9.9.9.9.1.1.1.1.9.9.9.1.9.7.3.
+
