@@ -4,36 +4,25 @@ the story headline is "A diagonal affair"
 
 the story description is "Okay, it's really just Q*Bert: the Text Adventure"
 
+include Old School Verb Total Carnage by Andrew Schultz.
+
+include Trivial Niceties by Andrew Schultz.
+
+the release number is 1.
+
+release along with cover art.
+
+release along with the "Parchment" interpreter.
+
 volume the whole game
 
 To process (RL - a rule): (- ProcessRulebook({RL}, 0, true); -)
 
 chapter verbs I'll ignore
 
-understand the command "burn" as something new.
-understand the command "wave" as something new.
+understand "jump" as jumping.
 
-instead of jumping: say "But which way? You can choose any of the diagonals."
-
-chapter random swears
-
-Include (-
-
-Array swears --> 9 33 64 35 36 37 94 38 42 63;
-
-[ SwearString i;
-  ! for (i = 0: i < 9: i++) {
-  for (i = 0: i < 7: i++) {
-    ! print (char) swears-->(i+1);
-    print (string) swears-->random(9);
-    print i;
-  }
-  rfalse;
-];
-
--)
-
-to say randswear: (- SwearString(); -)
+instead of jumping: say "But which way? You can choose any of the diagonal directions."
 
 chapter variables
 
