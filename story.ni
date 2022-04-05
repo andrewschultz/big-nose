@@ -83,6 +83,14 @@ to reset-level:
 	now swcount is 0;
 	now secount is 0;
 	now move-count is 0;
+	choose row cur-level in table of level critical moments;
+	if started-yet entry is false:
+		say "[start-text entry]";
+	else:
+		say "[restart-text entry]";
+	now started-yet entry is true;
+	say "[line break]";
+	wfak;
 
 to decide which number is xc of (j - a number):
 	let count be 0;
@@ -107,7 +115,7 @@ when play begins:
 	reset-level;
 	move player to Pyramid, without printing a room description;
 
-the description of the Pyramid is "[one of]Oh dear. The squares on this 7-high triangle of a pyramid are all yellow. And you need to make them pink. They tend to start blue, then go yellow, then pink, then blue again. So you can't just run out and touch every one twice. You long for that wistful time fifteen minutes ago when they flipped between two colors, or even just stayed one color after a jump or two.[paragraph break]You suspect someone has a reason why the board seems halfway done. If you want to foil them, you can try BLINKing--but only before you move.[or]You decide to quit whining to yourself about how easy things were and consider the board abstractly. Maybe it'll help you clear things up. Oh, man, it could be worse when Coily drops down to chase you, and Sam and Slick mess up your work. You really hope the person who threw you in this puzzle didn't have time to implement them.[paragraph break]On the board below, your square is in CAPS, and the discs are up and right of the right side.[paragraph break][the-board][or][the-board][stopping]"
+the description of the Pyramid is "[one of]Oh dear. The squares on this 7-high triangle of a pyramid all need to go green. They've all started yellow, so it won't be too hard to step on them all. It probably gets harder later, though.[paragraph break][the-board][or]You decide to quit whining to yourself about how easy things were and consider the board abstractly. Maybe it'll help you clear things up. Oh, man, it could be worse when Coily drops down to chase you, and Sam and Slick mess up your work. You really hope the person who threw you in this puzzle didn't have time to implement them.[paragraph break]On the board below, your square is in CAPS, and the discs are up and right of the right side.[paragraph break][the-board][or][the-board][stopping]"
 
 the board is backdrop. The board is everywhere.
 
@@ -138,15 +146,21 @@ understand the command "xyzzy" as something new. understand "xyzzy" as xyzzying.
 
 hinting is an action out of world.
 
-hintcounter is a number that varies. hintcounter is usually 0.
-
 carry out hinting:
-	increment hintcounter;
-	say "[one of]Chip away at the corners first so you don't have to worry about them.[or]Try getting close without using any discs. What happens?[or]You can also use the bottom right disc strategically. The corners are hard to fill in.[or]This is actually a parity problem of sorts, like the checkerboard where you pull out opposite corners.[or]If you hop on a disc, the parity changes--there are three configurations. The first doesn't work, and the discs shuffle you to the next one. They wouldn't, if you jumped from even rows.[or]You can ask for a SOLUTION if you want. The easiest way is to use one disc.[or]Just keep chipping at the corners. You can probably get the bottom-left 6-high triangle done, then just bounce around.[or][nohint]Just keep chipping at the corners. You can probably get the bottom-left 6-high triangle done, then just bounce around.[stopping]";
+	if cur-level < 3:
+		say "[lh]There's no real way to mess things up here without falling off the pyramid. Chipping away at the corners first may make things go faster. This is general advice.";
+		the rule succeeds;
+	if cur-level is 3:
+		say "[one of]You may wish to step on the corners first. There will be something you have to come back to get later.[or][lh]If you have two yellow squares on opposite ends of the board, you can walk to one then the other--you don't have to fill in squares as you go. That's a bit inefficient.[stopping]";
+		the rule succeeds;
+	if cur-level is 4:
+		say "[one of]If you step on all the squares once, you are back where you were at level 3.[or][lh]Once you've stepped on all the squares, you may wish to chip away at the corners, then maybe the corner 3-size triangles (e.g. NE of the one corner then SE) and so forth.[stopping]";
+	if cur-level is 5:
+		say "[one of]The discs may be useful here to clear out not only a corner square but the top square.[or]You can use the same strategy as before, but you will eventually have to go back and fill in a stray pyramid square you didn't step on.[or]Don't try to fill in squares in the center first. A good policy is to dance from one square trapped sort of in the corner to another one and maybe even fill in the northwest and northeast edges before working inwards. Spoiler ahead.[or][lh]If you hop on a disc, the board's parity changes between three configurations--the one you are on to start is unsolvable without a disc. Also, if you jump on all three discs, it's unsolvable again. But in this case you can fall to your doom and retry.[stopping]";
+	say "[one of]The same strategies apply here as in previous levels, except not having disks causes trouble. There is something you have to do to win that you couldn't on previous levels.[or]You may wonder if you can win without using discs. Well, yes and no. Check the walkthrough for details.[or]You can try falling off the edge--in some cases, that helps.[or]Off some squares, falling doesn't help. Think about it, if you want, before a spoiler ahead.[or]You need to jump off the pyramid when on row 2, 4 or 6. That is because you jump from an odd row to an even row and back and forth. But if you die after touching an even row, you touch row 2 next: two even rows in a row. That greases the wheels to solve things as you might have done in level 5, after using a disc. If you already fell off the pyramid, the game will let you do so again and retry from scratch.[stopping]";
 
-to say nohint:
-	decrement hintcounter;
-	say "That's all the hints I have. [no line break]";
+to say lh: say "(last hint for this level) ";
+
 chapter notify if so close yet so far
 
 to decide whether so-close-yet-so-far:
@@ -345,6 +359,10 @@ this is the edge-jump-check rule:
 					now level-6-death is true;
 					try looking;
 					the rule succeeds;
+			if cur-level is 5 and disc3u is false and disc5u is false and disc7u is false:
+				say "'Kid, you tried your best, and you worked real hard, but things didn't quite click. But for your effort, we'll give you another shot. What do you say?' They don't actually wait for what you say. You're pushed back out on the pyramid.";
+				reset-level;
+				the rule succeeds;
 			end the story instead;
 		otherwise:
 			the rule succeeds;
