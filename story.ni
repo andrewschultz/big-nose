@@ -369,3 +369,34 @@ carry out lving:
 		say "Resetting current level.";
 	reset-level;
 	the rule succeeds.
+
+volume tests - not for release
+
+test l1 with "lc 1/3/3/3/3/3/3/9/1/3/3/3/3/3/7/1/7/7/7/7/1/3/3/3/7/1/7/7/1/3/7/1".
+
+test l2 with "lc 2/3/3/9/3/3/3/3/9/1/3/3/3/3/3/9/3/7/3/7/1/7/9/7/1/7/7/7/1/1/9/1/1/1/1/9/1/9/3/9/1/9/3/9/1/9/3/9/1/9/3/7/3/7/7/7/3/7/1/7/3/7/1".
+
+test l3 with "lc 3/3/3/3/3/3/3/9/1/3/3/3/3/3/7/1/7/9/3/7/1/1/9/7/7/7/1/3/3/1/7/7/1/3/7/1/9".
+
+test l4 with "lc 4/3/3/3/3/3/3/7/3/9/3/3/3/3/9/1/3/7/3/3/3/7/3/3/3/7/3/7/1/9/1/7/1/7/9/3/1/7/9/7/7/1/3/9/7/1/3/1/1/7/1/9/1/9/9/1/9/3/3/7/1/9/3".
+
+test l5 with "lc 5/3/1/3/9/3/1/3/9/3/3/9/1/1/3/3/3/3/9/3/7/1/9/1/7/3/7/7/3/7/1/3/7/9/1/1/9/7/7/1/3/1/7/1".
+
+test l5x with "lc 5/1/1/1/1/1/1/9/3/7/3/7/3/9/9/9/9/9/7/3/3/3/3/3/3/7/1/7/7/7/7/9/1/9/1/1/1/1/1/9/9/9/1/1/3/9/3/9/3/9/9/3/7/3/7/1/7/3/7/7/3/7/1/9".
+
+test l6 with "lc 6/au 2/1/1/1/1/1/1/9/3/7/3/7/7/3/7/3/3/3/3/3/3/7/1/9/1/9/1/7/3/7/7/7/7/9/1/9/1/3/3/3/1/9/7/7/3/7/1/3/1/7/1/7/1/9/9/9/9/1/1/1/1/9/9/9/1/9".
+
+chapter lcing
+
+lcing is an action applying to one number.
+
+understand the command "lc" as something new.
+
+understand "lc [number]" as lcing.
+
+carry out lcing:
+	if number understood is cur-level, say "We're already at level [number understood]." instead;
+	if number understood < 1 or number understood > 6, say "Only 1-6 please." instead;
+	now cur-level is number understood;
+	reset-level;
+	the rule succeeds;
