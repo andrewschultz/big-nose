@@ -92,6 +92,15 @@ to decide which number is xc of (j - a number):
 
 level-order is a list of text variable. level-order is { "A->B", "A->B->C", "A<->B", "A->B<->C", "A->B->C->A", "A->B->C->A" }.
 
+to say randswear: say "[grawlyx-random of 6]";
+
+to say grawlyx-random of (n - a number):
+	repeat with n2 running from 1 to n:
+		let nr be a random number between 1 and the number of entries in grawlyxes;
+		say "[entry nr of grawlyxes]";
+
+grawlyxes is a list of text variable. grawlyxes is { "![no line break]", "@", "#", "$", "%", "^", "&", "*", "?[no line break]" }
+
 when play begins:
 	now left hand status line is "[cur-level] [entry cur-level in level-order]";
 	now right hand status line is "[if cur-level is not 1 and cur-level is not 3][xc of 1]/[end if][xc of 2]/[xc of 3] [move-count]";
@@ -301,8 +310,8 @@ this is the edge-jump-check rule:
 	else:
 		now warn-player is whether or not swcount + secount is 6;
 	if warn-player is true:
-		say "[randswear], there's no square there, and it's a long way down. Still want to?";
-		if the player consents:
+		say "[randswear], there's no square to the [noun], and it's a long way down. Still want to?";
+		if the player dir-consents:
 			say "[randswear]";
 			if level-6-death is false:
 				if cur-level is 6:
