@@ -3,17 +3,134 @@
 ** mistake/clue revealing tester
 ** not attacked to the main walkthrough file
 
-** game: /home/andrew/prt/debug-big-nose.z5
-** interpreter: /home/andrew/prt/glulxe -q
+** game: /home/andrew/prt/debug-big-nose.z8
+** interpreter: /home/andrew/prt/dfrotz -m -w5000
 
 * gothru_testing
 
->lv 4
-Moving to level 4.
+>lc 4
 
->lv 4
-You're already on level 4. Type lv 0 to reset.
+>3
 
->lv 0
-Resetting current level.
+>3
 
+>3
+
+>3
+
+>3
+
+>3
+
+>7
+
+>3
+
+>9
+
+>3
+
+>3
+
+>3
+
+>3
+
+>9
+
+>1
+
+>3
+
+>7
+
+>3
+
+>3
+
+>3
+
+>7
+
+>3
+
+>3
+
+>3
+
+>7
+
+>3
+
+>7
+
+>1
+
+>9
+
+>1
+
+>7
+
+>1
+
+>7
+
+>9
+
+>3
+
+>1
+
+>7
+
+>9
+
+>7
+
+>7
+
+>1
+
+>3
+
+>9
+
+>7
+
+>1
+
+>3
+
+>1
+
+>1
+
+>7
+
+>1
+
+>9
+
+>1
+
+>9
+
+>9
+
+>1
+
+>9
+
+>3
+
+>3
+
+>7
+
+>1
+
+>9
+
+>3
+Lights swirl!
