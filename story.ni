@@ -39,7 +39,16 @@ L is a list of numbers that varies.
 
 cur-level is a number that varies. cur-level is 1.
 
+move-list is a list of numbers variable.
+
 move-count is a number that varies.
+
+a direction has a number called key-stroke.
+
+key-stroke of northwest is 7.
+key-stroke of northeast is 9.
+key-stroke of southwest is 1.
+key-stroke of southeast is 3.
 
 chapter the room
 
@@ -57,6 +66,7 @@ to reset-level:
 	now disc5u is true;
 	now disc7u is true;
 	let FC be 1 + remainder after dividing cur-level by 2; [first-color hack]
+	now move-list is {};
 	now L is {};
 	repeat with x running from 0 to 48:
 		let xx be x / 7;
@@ -324,10 +334,15 @@ to hop-on (n - a number):
 		else:
 			now entry n of L is 3;
 
+my-moves is a number that varies.
+
 carry out going:
 	let temp be (secount * 8) + (swcount * 7) + 1;
 	[say "Flipped [temp].";]
 	hop-on temp;
+	increment my-moves;
+	add key-stroke of noun to move-list;
+	if debug-state is true, say "[my-moves] moves, [move-list].";
 	repeat with L1 running through L:
 		if L1 is 1 or L1 is 2, the rule succeeds;
 	say "Lights swirl! You hear a little tune! There's flashing, then ... a new board.";
