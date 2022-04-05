@@ -8,7 +8,7 @@ include Old School Verb Total Carnage by Andrew Schultz.
 
 include Trivial Niceties by Andrew Schultz.
 
-the release number is 1.
+the release number is 2.
 
 release along with cover art.
 
@@ -98,7 +98,7 @@ to decide which number is xc of (j - a number):
 		if entry x in L is j, increment count;
 	decide on count;
 
-level-order is a list of text variable. level-order is { "A->B", "A->B->C", "A<->B", "A->B<->C", "A->B->C->A", "A->B->C->A" }.
+level-order is a list of text variable. level-order is { "Y->G", "B->Y->G", "Y<->G", "B->Y<->G", "Y->G->B->Y", "Y->G->B->Y" }.
 
 to say randswear: say "[grawlyx-random of 6]";
 
@@ -359,7 +359,7 @@ this is the edge-jump-check rule:
 					now level-6-death is true;
 					try looking;
 					the rule succeeds;
-			if cur-level is 5 and disc3u is false and disc5u is false and disc7u is false:
+			if cur-level is 5 and disc3u is disc5u and disc5u is disc7u:
 				say "'Kid, you tried your best, and you worked real hard, but things didn't quite click. But for your effort, we'll give you another shot. What do you say?' They don't actually wait for what you say. You're pushed back out on the pyramid.";
 				reset-level;
 				the rule succeeds;
@@ -456,28 +456,23 @@ false	"'Last one, okay? It can't be that much harder than what you've done, unle
 instead of baddirring:
 	say "You've never been one for the traditional directions. You'd rather hop off at an angle."
 
+volume meta verbs
+
+chapter abouting
+
+abouting is an action out of world.
+
+understand the command "about" as something new.
+
+understand "about" as abouting.
+
+carry out abouting:
+	say "The main guts of this program were apparently originally written back around December 22, 2011, according to a README file. I always had an idea of tributing the IF Arcade that came out as an April Fool's joke back in 2001. I sort of tried it with Dirk, which I still need to re-release as of 2022, the year [this-story] was published, but Q*Bert seemed like a choice that could actually have a story and teach a lesson.[paragraph break]There's a mathematical principle here that's the same as [i]A Checkered Haunting[r], an EctoComp game I wrote in 2016, but it's a bit more obscure.[paragraph break]So it was meant to be a joke, but I know when I was a kid I just wanted to practice on a board without any enemies. I could have written a BASIC program--I had the skills, even if I may not have known how to get a key insteaad of pressing enter all the time. But I never did. And it occurs to me that other people may've wanted to try, too. Maybe Inform isn't the best language for this, but it's more than good enough, and it encouraged me to write a story.[paragraph break]Thanks to Wade Clarke and DrkStarr for alerting me to problems in release 1 and, of course, all the authors in the original IF Arcade for general inspiration.[paragraph break]Source code, etc., should be at http://github.com/andrewschultz/big-nose.";
+	the rule succeeds;
+
 volume testing - not for release
 
 Include (- Switches z; -) after "ICL Commands" in "Output.i6t".
-
-chapter lving
-
-lving is an action applying to one number.
-
-understand the command "lv" as something new.
-
-understand "lv [number]" as lving.
-
-carry out lving:
-	if the number understood > 6 or the number understood < 0, say "Need 1-6, or 0 to reset current level." instead;
-	if the number understood is cur-level, say "You're already on level [number understood]. Type lv 0 to reset." instead;
-	if number understood is not 0:
-		say "Moving to level [number understood].";
-		now cur-level is the number understood;
-	else:
-		say "Resetting current level.";
-	reset-level;
-	the rule succeeds.
 
 volume extra option
 
@@ -524,17 +519,23 @@ test l5x with "lc 5/1/1/1/1/1/1/9/3/7/3/7/3/9/9/9/9/9/7/3/3/3/3/3/3/7/1/7/7/7/7/
 
 test l6 with "lc 6/au 2/1/1/1/1/1/1/9/3/7/3/7/7/3/7/3/3/3/3/3/3/7/1/9/1/9/1/7/3/7/7/7/7/9/1/9/1/3/3/3/1/9/7/7/3/7/1/3/1/7/1/7/1/9/9/9/9/1/1/1/1/9/9/9/1/9".
 
-chapter lcing
+chapter levelchanging
 
-lcing is an action applying to one number.
+levelchanging is an action applying to one number.
 
 understand the command "lc" as something new.
+understand the command "lv" as something new.
 
-understand "lc [number]" as lcing.
+understand "lc [number]" as levelchanging.
+understand "lv [number]" as levelchanging.
 
-carry out lcing:
+carry out levelchanging:
 	if number understood is cur-level, say "We're already at level [number understood]." instead;
 	if number understood < 1 or number understood > 6, say "Only 1-6 please." instead;
-	now cur-level is number understood;
+	if number understood is not cur-level:
+		say "Moving to level [number understood].";
+		now cur-level is the number understood;
+	else:
+		say "Resetting current level.";
 	reset-level;
 	the rule succeeds;
