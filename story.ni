@@ -18,6 +18,15 @@ volume the whole game
 
 To process (RL - a rule): (- ProcessRulebook({RL}, 0, true); -)
 
+chapter xyzzying
+
+xyzzying is an action out of world.
+
+understand the command "xyzzy" as something new. understand "xyzzy" as xyzzying.
+
+carry out xyzzying:
+	say "Your head hurts momentarily as you think of your poor cousin who was sent out to rotate cubes into a certain position across three different axes. You don't know how he manages to do it. That three-dimensional stuff is insane. [italic type](Note: if you hated this offering, you will certainly be relieved to know I have no intention of writing a sequel based on [i]Q*Bert's Qubes[r]. It would probably take another ten years, and I have better things to do with my life. Well, less wasteful things.)[roman type]"
+
 chapter verbs I'll ignore
 
 understand "jump" as jumping.
@@ -137,12 +146,8 @@ going down is baddirring.
 going inside is baddiring.
 going outside is baddiring.
 
-xyzzying is an action out of world.
-
-carry out xyzzying:
-	say "Your head hurts momentarily as you think of your poor cousin who was sent out to rotate cubes into a certain position across three different axes. You don't know how he manages to do it. That three-dimensional stuff is insane. [italic type](Note: if you hated this speed-if, you will certainly be glad to know I'm not writing a sequel based on Q*Bert's Qubes.)[roman type]"
-
-understand the command "xyzzy" as something new. understand "xyzzy" as xyzzying.
+understand the command "help" as something new. understand "help" as hinting.
+understand the command "hint" as something new. understand "hint" as hinting.
 
 hinting is an action out of world.
 
@@ -211,11 +216,12 @@ instead of taking inventory:
 chapter parser error
 
 rule for printing a parser error:
-	say "You can go UL, DL, DR, UR -- NW, SW, SE, NE -- or, if you want to use one keystroke, the numpad 7 1 3 9 or the keys r c b y u=will do the trick. This is much less awkward than having to hold your keyboard at an angle to play the graphic version on an emulator. You can also ask for HELP or a HINT.";
+	say "You have a few options to move around. You can go [b]UL, DL, DR, UR[r] or use the more traditional [b]NW, SW, SE, NE[r]. If you want to use one keystroke, the numpad [b]7 1 3 9[r] or the keys [b]R C B Y[r] will do the trick. You can mix and match these as you choose.[paragraph break]This is much less awkward than having to hold your keyboard at an angle to play the graphic version on an emulator. You can also ask for [b]HELP[r] or a [b]HINT[r] or, to see basic game information and background, [b]ABOUT[r].";
 	reject the player's command;
 
-understand the command "help" as something new. understand "help" as hinting.
-understand the command "hint" as something new. understand "hint" as hinting.
+chapter verb synonyms
+
+section up left down right
 
 understand the command "ul" as something new. understand "ul" as northwest.
 understand the command "ur" as something new. understand "ur" as northeast.
@@ -227,20 +233,47 @@ understand the command "ru" as something new. understand "ru" as northeast.
 understand the command "ld" as something new. understand "ld" as southwest.
 understand the command "rd" as something new. understand "rd" as southeast.
 
+understand the command "r" as something new. understand "r" as east.
+
+section backward directions
+
 understand the command "wn" as something new. understand "wn" as northwest.
 understand the command "en" as something new. understand "en" as northeast.
 understand the command "ws" as something new. understand "ws" as southwest.
 understand the command "es" as something new. understand "es" as southeast.
+
+section mapping the numpad
 
 understand the command "7" as something new. understand "7" as northwest.
 understand the command "9" as something new. understand "9" as northeast.
 understand the command "1" as something new. understand "1" as southwest.
 understand the command "3" as something new. understand "3" as southeast.
 
+understand the command "7" as something new. understand "7" as northwest.
+understand the command "9" as something new. understand "9" as northeast.
+understand the command "1" as something new. understand "1" as southwest.
+understand the command "3" as something new. understand "3" as southeast.
+
+understand the command "5" as something new. understand "5" as waiting.
+
+understand the command "2" as something new. understand "2" as south.
+understand the command "4" as something new. understand "4" as west.
+understand the command "6" as something new. understand "6" as east.
+understand the command "8" as something new. understand "8" as north.
+
+section one-key mapping
+
 understand the command "r" as something new. understand "r" as northwest.
 understand the command "y" as something new. understand "y" as northeast.
 understand the command "c" as something new. understand "c" as southwest.
 understand the command "b" as something new. understand "b" as southeast.
+
+understand the command "t" as something new. understand "t" as north.
+understand the command "v" as something new. understand "v" as south.
+understand the command "f" as something new. understand "f" as west.
+understand the command "h" as something new. understand "h" as east.
+
+chapter printing stuff
 
 to say the-board:
 	let Y be (secount * 8) + (swcount * 7) + 1;
@@ -467,7 +500,7 @@ understand the command "about" as something new.
 understand "about" as abouting.
 
 carry out abouting:
-	say "The main guts of this program were apparently originally written back around December 22, 2011, according to a README file. I always had an idea of tributing the IF Arcade that came out as an April Fool's joke back in 2001. I sort of tried it with Dirk, which I still need to re-release as of 2022, the year [this-story] was published, but Q*Bert seemed like a choice that could actually have a story and teach a lesson.[paragraph break]There's a mathematical principle here that's the same as [i]A Checkered Haunting[r], an EctoComp game I wrote in 2016, but it's a bit more obscure.[paragraph break]So it was meant to be a joke, but I know when I was a kid I just wanted to practice on a board without any enemies. I could have written a BASIC program--I had the skills, even if I may not have known how to get a key insteaad of pressing enter all the time. But I never did. And it occurs to me that other people may've wanted to try, too. Maybe Inform isn't the best language for this, but it's more than good enough, and it encouraged me to write a story.[paragraph break]Thanks to Wade Clarke and DrkStarr for alerting me to problems in release 1 and, of course, all the authors in the original IF Arcade for general inspiration.[paragraph break]Source code, etc., should be at http://github.com/andrewschultz/big-nose.";
+	say "The main guts of this program were apparently originally written back around December 22, 2011, according to a README file. I always had an idea of tributing the IF Arcade that came out as an April Fool's joke back in 2001. I sort of tried it with Dirk, which I still need to re-release as of 2022, the year [this-game] was published, but Q*Bert seemed like a choice that could actually have a story and teach a lesson.[paragraph break]There's a mathematical principle here that's the same as [i]A Checkered Haunting[r], an EctoComp game I wrote in 2016, but it's a bit more obscure.[paragraph break]So it was meant to be a joke, but I know when I was a kid I just wanted to practice on a board without any enemies. I could have written a BASIC program--I had the skills, even if I may not have known how to get a key insteaad of pressing enter all the time. But I never did. And it occurs to me that other people may've wanted to try, too. Maybe Inform isn't the best language for this, but it's more than good enough, and it encouraged me to write a story.[paragraph break]Thanks to Wade Clarke and DrkStarr for alerting me to problems in release 1 and, of course, all the authors in the original IF Arcade for general inspiration.[paragraph break]Source code, etc., should be at http://github.com/andrewschultz/big-nose.";
 	the rule succeeds;
 
 volume testing - not for release
