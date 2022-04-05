@@ -61,12 +61,16 @@ Pyramid is northwest of Pyramid.
 	if l is 1 or l is 3 or l is 5, decide on 1;
 	decide on 2;]
 
+to decide which number is start-color of (n - a number):
+	if n is 2 or n is 4, decide on 1;
+	decide on 2;
+
 to reset-level:
-	now disc3u is true;
-	now disc5u is true;
-	now disc7u is true;
-	let FC be 1 + remainder after dividing cur-level by 2; [first-color hack]
 	now move-list is {};
+	now disc3u is whether or not cur-level < 6;
+	now disc5u is whether or not cur-level < 6;
+	now disc7u is whether or not cur-level < 6;
+	let FC be start-color of cur-level; [first-color hack]
 	now L is {};
 	repeat with x running from 0 to 48:
 		let xx be x / 7;
@@ -299,6 +303,14 @@ this is the edge-jump-check rule:
 		say "[randswear], there's no square there, and it's a long way down. Still want to?";
 		if the player consents:
 			say "[randswear]";
+			if level-6-death is false:
+				if cur-level is 6:
+					say "[paragraph break]But wait! You don't get off so easily. Someone's there to ... help you get better. Give you one more chance. In fact, it's an offer you can't refuse!";
+					now swcount is 0;
+					now secount is 0;
+					now level-6-death is true;
+					try looking;
+					the rule succeeds;
 			end the story instead;
 		otherwise:
 			the rule succeeds;
@@ -311,6 +323,7 @@ carry out requesting the score:
 	the rule succeeds;
 
 min-moves is a list of numbers variable. min-moves is { 31, 62, 36, 62, 43, 68 }.
+level-6-death is a truth state that varies.
 
 rule for printing the player's obituary:
 	if 2 is listed in L or 1 is listed in L:
