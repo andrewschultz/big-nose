@@ -70,6 +70,7 @@ to reset-level:
 	now disc3u is whether or not cur-level < 6;
 	now disc5u is whether or not cur-level < 6;
 	now disc7u is whether or not cur-level < 6;
+	now level-6-death is false;
 	let FC be start-color of cur-level; [first-color hack]
 	now L is {};
 	repeat with x running from 0 to 48:
@@ -327,7 +328,11 @@ level-6-death is a truth state that varies.
 
 rule for printing the player's obituary:
 	if 2 is listed in L or 1 is listed in L:
-		say "Ah, well. It's only a stupid bunch of squares, anyway. You'd probably just have to clean it again if you got it all monochrome.";
+		if cur-level is 6:
+			say "'So close, kid! And we even gave you a second chance! You just didn't make the most of it.'[paragraph break]There actually is a way to get through, though.";
+		else:
+			block-retry;
+			say "Ah, well. It's only a stupid bunch of squares, anyway. You'd probably just have to clean it again if you got it all monochrome. Thank goodness for the benefits from the Arcade Game Protagonists['] Union. The medical plan is pretty good, and really, you could use a break from the drudgery. It's just too bad that, without any hands, you can't play foozball with the others who are recuperating.";
 		the rule succeeds;
 	let auth-num be entry cur-level in min-moves;
 	if move-count is auth-num:
@@ -356,14 +361,32 @@ carry out going:
 	increment my-moves;
 	add key-stroke of noun to move-list;
 	if debug-state is true, say "[my-moves] moves, [move-list].";
+	if so-close-yet-so-far:
+		say "So frustrating! You know you're as close as can be, and yet ... you can't see how to finish the deal, just hopping around the pyramid.";
 	repeat with L1 running through L:
 		if L1 is 1 or L1 is 2, the rule succeeds;
-	say "Lights swirl! You hear a little tune! There's flashing, then ... a new board.";
+	say "Lights swirl! You hear a little tune! There's flashing, then ... [if cur-level is 6]no new board this time[else]a new board[end if].";
 	if cur-level < 6:
+		evaluate-player;
 		increment cur-level;
 		reset-level instead;
-	say "A cacophony of music and flashing lights greets your accomplishment! Your reward is to do it all over again with slightly different colored squared. Geez, why can't you at least get a skit like the idiot who just chews dots and doesn't have to worry about where he's been?";
+	say "A cacophony of music and flashing lights greets your accomplishment! Your reward is to do it all over again with slightly different colored squared. Oh, and a sense of accomplishment for solving an interesting abstract puzzle, for what that's worth.[paragraph break]Geez! Why can't you even get a part in a cute skit, like the idiot who just chews dots and doesn't have to worry about where he's been, or whether those dots will pop back up?";
+	block-retry;
 	end the story;
+
+to block-retry:
+	choose row with final response rule of epilogue rule in table of final question options;
+	blank out the whole row;
+
+table of level critical moments
+started-yet	start-text	restart-text
+false	"'Okay, turn those yellow squares green already! There's really no excuse! There's no Sam, Slick or Coily to distract you!' There's no why. Just, you have to do it. It could be worse. You could be assigned to shoot stuff. You hate shooting stuff. But still, you mouth a quick [randswear] under your breath."	"'Really! If you mess this up, they'll only get tougher. We might've given you a break if you hadn't messed up so early, but really, this is a bit clumsy.' [randswear]. "
+false	"'This one's gonna be a bit trickier. You'll have to jump on each square twice to turn it from blue to green. It seemed like you were about to start cussing when you had to backtrack over squares you already changed, kid, but I tell you what. There's a lot more backtracking to do. And I don't like your attitude, kid, or that mouth of yours, but you're the only whatever-it-is to complete the job here.'"	"'Boy oh boy. If you butchered THIS... well, I'm too classy to say what I really think. We just can't rely on you for the tough stuff, though, that's obvious.'"
+false	"'Hooray for perseverance! Though, no offense, you didn't have to do anything too brilliant, especially since nobody was chasing you. Now this one is a bit tricky. Yellow to green, but if you step on green, it won't STAY green. Are you up to it?' It doesn't matter if you are. You're pushed out there on the pyramid, again."	"'Kid, we're sorry. We thought you had IT. We believed in you. You had the potential. But you couldn't just brute-force things, and that made you give up, and that makes us sad. It's an early retirement for you.'"
+false	"'Not bad. Some people, or whatever you are, just give up when tiles start changing back from the color they're supposed to be. But not you! You got potential, kid. Hey, next up: blue to yellow to green to yellow to green. But it's not super-tough. Yet. You'll see what we mean.'"	"'The combo of three colors and switching back was a bit too much for you, eh?"
+false	"'Impressive indeed. Now for the big one, sort of: Tiles change back from green all the way to blue if you step on them. Not easy, but we believe in you.'"	"Well, you did enough, we guess. Enjoy your retirement, kid, but spare a thought for what might have been. You could've been one of the great ones.'"
+false	"'Last one, okay? It can't be that much harder than what you've done, unless we're missing something. Oh, hey, we had some budget cuts, so we can't afford those discs where you jump back to the top again. But you won't need them. Oh, also, everything's going to start on blue, so that make it easier to get through. Right? Right? Oh, also, you'll have to stay until you complete the job. No sneaking out.'[paragraph break]You long for that wistful time fifteen minutes ago when they flipped between two colors, or even just stayed one color after a jump or two."	"'Ah. Back for more. Here's hoping this time you get it straight.'"
+
 
 [report going:
 	repeat with i running from 1 to 7:
@@ -397,6 +420,35 @@ carry out lving:
 		say "Resetting current level.";
 	reset-level;
 	the rule succeeds.
+
+volume extra option
+
+Table of Final Question Options (continued)
+final question wording	only if victorious	topic		final response rule		final response activity
+"[b]RETRY[r] the final level"	false	"retry"	epilogue rule	--
+
+escape mode is a truth state that varies.
+
+This is the epilogue rule:
+	resume the story;
+	now escape mode is true;
+	now swcount is 0;
+	now secount is 0;
+	say "Well, why not try again?";
+	reset-level;
+
+Include (-
+
+[ ASK_FINAL_QUESTION_R;
+	print "^";
+	(+ escape mode +) = false;
+	while ((+ escape mode +) == false) {
+		CarryOutActivity(DEALING_WITH_FINAL_QUESTION_ACT);
+		DivideParagraphPoint();
+	}
+];
+
+-) instead of "Ask The Final Question Rule" in "OrderOfPlay.i6t".
 
 volume tests - not for release
 
